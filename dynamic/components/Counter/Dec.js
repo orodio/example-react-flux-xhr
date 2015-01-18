@@ -4,6 +4,8 @@ var React = require("react");
 var actions = require("./actions");
 
 module.exports = React.createClass({
+  displayName : "Counter/Dec",
+
   render() {
     return <button onClick={this.click}>-</button>
   },
