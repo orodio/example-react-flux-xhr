@@ -15,10 +15,9 @@ module.exports = React.createClass({
 
   render() {
     var {data} = this.props;
-    var _total = total();
 
     return  <div className="Counters">
-              {_total > 0 && <h3>Total: {total(data)}</h3>}
+              <h3>Total: {total(data)}</h3>
               <NewForm/>
               {map(data, Counter.mapper)}
             </div>

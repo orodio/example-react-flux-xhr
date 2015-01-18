@@ -1,27 +1,21 @@
 "use strict";
 
-var NS             = "COUNTERS";
-var {EventEmitter} = require("events");
-var {assign}       = require("lodash");
-var dispatcher     = require("oro-dispatcher");
-
+var projection = require("oro-dispatcher/lib/projection");
 var __Counters = [];
 
-var store = module.exports = assign({}, EventEmitter.prototype, {
-  broadcast()     { this.emit(NS); },
-  subscribe(fn)   { this.on(NS, fn); },
-  unsubscribe(fn) { this.removeListener(NS, fn); },
-
-  getAll() { return __Counters; },
-
-  dispatcherToken : dispatcher.register(function(payload) {
-    var {actionType, data} = payload.action;
-
-    switch (actionType) {
-      case "COUNTERS_UPDATE":
-        __Counters = data;
-        store.broadcast();
-        break;
-    }
-  })
+var store = module.exports = projection("COUNTERS", dispatch, {
+  getAll() { return __Counters; }
 });
+
+function dispatch(payload) {
+  var {actionType, data} = payload.action;
+
+  switch (actionType) {
+    case "COUNTERS_UPDATE":
+      __Counters = data;
+      store.broadcast();
+      break;
+  }
+}
+
+

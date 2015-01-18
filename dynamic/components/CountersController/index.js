@@ -1,9 +1,10 @@
 "use strict";
 
-var React    = require("react");
-var Counters = require("../Counters");
-var store    = require("./store");
-var actions  = require("./actions");
+var React     = require("react");
+var subscribe = require("oro-dispatcher/lib/subscribe");
+var Counters  = require("../Counters");
+var store     = require("./store");
+var actions   = require("./actions");
 
 function state() {
   return {
@@ -13,11 +14,7 @@ function state() {
 
 module.exports = React.createClass({
   displayName     : "CountersController",
-  getInitialState : state,
-
-  update()               { this.setState(state()); },
-  componentWillMount()   { store.subscribe(this.update); },
-  componentWillUnmount() { store.unsubscribe(this.update); },
+  mixins          : [subscribe(store, state)],
 
   componentDidMount() {
     actions.poll();
@@ -29,3 +26,8 @@ module.exports = React.createClass({
     return <Counters {...{data}}/>;
   }
 });
+
+
+
+
+

@@ -1,8 +1,9 @@
 "use strict";
 
-var React   = require("react");
-var store   = require("./store");
-var actions = require("./actions");
+var React     = require("react");
+var subscribe = require("oro-dispatcher/lib/subscribe");
+var store     = require("./store");
+var actions   = require("./actions");
 
 function state() {
   return {
@@ -12,12 +13,8 @@ function state() {
 }
 
 module.exports = React.createClass({
-  displayName     : "CountersNewForm",
-  getInitialState : state,
-
-  update()               { this.setState(state()); },
-  componentWillMount()   { store.subscribe(this.update); },
-  componentWillUnmount() { store.unsubscribe(this.update); },
+  displayName : "CountersNewForm",
+  mixins      : [subscribe(store, state)],
 
   render() {
     var {title, titleIsValid} = this.state;

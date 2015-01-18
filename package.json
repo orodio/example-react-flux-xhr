@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "jsx-loader": "^0.12.2",
-    "oro-dispatcher": "^1.0.3",
+    "oro-dispatcher": "^1.0.7",
     "oro-xhr": "^1.0.3",
     "react": "^0.12.2",
     "superagent": "^0.21.0",
