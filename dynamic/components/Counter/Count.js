@@ -3,7 +3,10 @@
 var React = require("react");
 
 module.exports = React.createClass({
+  displayName : "Counter/Count",
+
   render() {
-    return <span>{this.props.children}</span>
+    var {children} = this.props;
+    return <span>{children}</span>
   }
 })
