@@ -1,33 +1,29 @@
 "use strict";
 
-var React     = require("react");
-var subscribe = require("oro-dispatcher/lib/subscribe");
-var Counters  = require("../Counters");
-var store     = require("./store");
-var actions   = require("./actions");
+import React     from "react";
+import {map}     from "lodash";
+import subscribe from "oro-dispatcher/lib/subscribe";
+import store     from "./store";
+import {poll}    from "./actions";
+import Counter   from "../Counter";
 
 function state() {
   return {
-    data : store.getAll()
+    counters : store.getAll()
   }
 }
 
-module.exports = React.createClass({
-  displayName     : "CountersController",
-  mixins          : [subscribe(store, state)],
+export default React.createClass({
+  displayName : "CountersController",
+  mixins      : [subscribe(store, state)],
 
-  componentDidMount() {
-    actions.poll();
-    // setInterval(actions.poll, 1000);
-  },
+  componentDidMount() { poll(); },
 
   render() {
-    var {data} = this.state;
-    return <Counters {...{data}}/>;
+    let {counters} = this.state;
+
+    return  <div>
+              {map(counters, d => <Counter {...d} key={d.id}/>)}
+            </div>
   }
 });
-
-
-
-
-

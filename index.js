@@ -19,9 +19,10 @@ function sendFile(name) {
   };
 }
 
-app.get("/",        sendFile("index.html"));
-app.get("/scripts", sendFile("scripts.js"));
-app.get("/styles",  sendFile("styles.css"));
+app.get("/",           sendFile("index.html"));
+app.get("/deps.js",    sendFile("deps.js"));
+app.get("/app.js",     sendFile("app.js"));
+app.get("/styles.css", sendFile("styles.css"));
 
 app.get("/api/v1/counters",  function(req, res) { res.json(counters.all()); });
 
@@ -44,8 +45,6 @@ app.post("/api/v1/counter/dec", function(req, res) {
   counters.dec(req.body.id);
   return res.json(counters.all());
 });
-
-
 
 app.get("*",        sendFile("index.html"));
 app.head("*",       sendFile("index.html"));

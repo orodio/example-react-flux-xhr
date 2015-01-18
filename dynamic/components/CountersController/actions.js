@@ -1,19 +1,14 @@
 "use strict";
 
-var xhr  = require("superagent");
-var send = require("oro-dispatcher/lib/send");
-var get  = require("oro-xhr/lib/get");
+import send  from "oro-dispatcher/lib/send";
+import get from "oro-xhr/lib/get";
 
-function getCounters() {
-  return get("/api/v1/counters");
+function getCounters() { return get("/api/v1/counters"); }
+
+function updateCounters(res) {
+  send("COUNTERS_UPDATE", {counters: JSON.parse(res.text)});
 }
 
-function getCountersSuccess(res) {
-  send("COUNTERS_UPDATE", {data: JSON.parse(res.text)});
-}
-
-module.exports = {
-  poll() {
-    getCounters().then(getCountersSuccess);
-  }
+export default {
+  poll() { getCounters().then(updateCounters); }
 };

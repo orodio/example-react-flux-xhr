@@ -1,8 +1,15 @@
+var webpack = require("webpack");
+
+var sharedDepsPlugin = new webpack.optimize.CommonsChunkPlugin('deps.js');
+
 module.exports = {
-  entry : __dirname + "/dynamic/app.js",
+  entry: {
+    App: __dirname + "/dynamic/app.js"
+  },
+
   output : {
     path : __dirname + "/static",
-    filename : "scripts.js"
+    filename : "[name].js"
   },
 
   resolve : {
@@ -11,7 +18,9 @@ module.exports = {
 
   module : {
     loaders : [
-      {test: /\.js$/, loader: "jsx-loader?harmony&stripTypes"}
+      {test: /\.js$/, exclude: "/node_modules/", loader: "jsx-loader?harmony&stripTypes!6to5-loader?experimental"}
     ]
-  }
+  },
+
+  plugins: [sharedDepsPlugin]
 };

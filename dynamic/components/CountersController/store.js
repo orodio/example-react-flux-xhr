@@ -1,21 +1,22 @@
 "use strict";
 
-var projection = require("oro-dispatcher/lib/projection");
-var __Counters = [];
+import projection from "oro-dispatcher/lib/projection";
 
-var store = module.exports = projection("COUNTERS", dispatch, {
+let __Counters = [];
+
+let store = projection("COUNTERS", fromDispatcher, {
   getAll() { return __Counters; }
 });
 
-function dispatch(payload) {
-  var {actionType, data} = payload.action;
+function fromDispatcher(payload) {
+  let {actionType, counters} = payload.action;
 
   switch (actionType) {
     case "COUNTERS_UPDATE":
-      __Counters = data;
+      __Counters = counters;
       store.broadcast();
       break;
   }
 }
 
-
+export default store;
