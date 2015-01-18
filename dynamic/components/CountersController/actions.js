@@ -9,17 +9,11 @@ function getCounters() {
 }
 
 function getCountersSuccess(res) {
-  send("COUNTERS_UPDATE", {
-    data : JSON.parse(res.text)
-  });
-}
-
-function err(res) {
-  console.erro(res);
+  send("COUNTERS_UPDATE", {data: JSON.parse(res.text)});
 }
 
 module.exports = {
   poll() {
-    getCounters().then(getCountersSuccess, err);
+    getCounters().then(getCountersSuccess);
   }
 };
