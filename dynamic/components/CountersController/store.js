@@ -21,6 +21,7 @@ var store = module.exports = assign({}, EventEmitter.prototype, {
       case "COUNTERS_UPDATE":
         __Counters = data;
         store.broadcast();
+        break;
     }
   })
 });
