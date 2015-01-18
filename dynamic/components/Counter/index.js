@@ -19,7 +19,7 @@ var Counter = module.exports = React.createClass({
   render() {
     var {id, title, count} = this.props;
 
-    return  <div>
+    return  <div className="Counter">
               <Title>{title}</Title>
               <Dec id={id}/>
               <Count>{count}</Count>
