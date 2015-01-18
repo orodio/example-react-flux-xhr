@@ -3,7 +3,6 @@
 var React              = require("react");
 var CountersController = require("../CountersController");
 
-
 module.exports = React.createClass({
   displayName : "App",
 
