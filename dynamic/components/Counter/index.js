@@ -1,35 +1,42 @@
 "use strict";
 
-var React            = require("react");
-var {string, number} = React.PropTypes;
-var Title            = require("./Title");
-var Count            = require("./Count");
-var Dec              = require("./Dec");
-var Inc              = require("./Inc");
+import React from "react";
+import {inc, del, dec} from "./actions";
 
-var Counter = module.exports = React.createClass({
+let {string, number} = React.PropTypes;
+
+export default React.createClass({
   displayName : "Counter",
 
   propTypes : {
-    id    : string,
     title : string,
-    count : number
+    count : number,
+    id    : string
   },
 
   render() {
-    var {id, title, count} = this.props;
+    let {props, dec, inc, del} = this;
+    let {title, count}         = props;
 
-    return  <div className="Counter">
-              <Title>{title}</Title>
-              <Dec id={id}/>
-              <Count>{count}</Count>
-              <Inc id={id}/>
-            </div>
+    return <div>
+            <button onClick={dec}>–</button>
+            <button onClick={inc}>{title}: {count}</button>
+            <button onClick={del}>x</button>
+          </div>
   },
 
-  statics : {
-    mapper(d, i): Counter {
-      return <Counter {...d} key={d.id}/>
-    }
+  inc(e) {
+    e.preventDefault();
+    inc(this.props.id);
+  },
+
+  dec(e) {
+    e.preventDefault();
+    dec(this.props.id);
+  },
+
+  del(e) {
+    e.preventDefault();
+    del(this.props.id);
   }
-})
+});

@@ -1,15 +1,17 @@
 "use strict";
 
-var React              = require("react");
-var CountersController = require("../CountersController");
+import React          from "react";
+import Counters       from "../CountersController";
+import NewCounterForm from "../NewCounterForm";
 
-module.exports = React.createClass({
+export default React.createClass({
   displayName : "App",
 
   render() {
     return  <div>
               <h2>Counter App</h2>
-              <CountersController/>
+              <NewCounterForm/>
+              <Counters/>
             </div>
   }
 });
