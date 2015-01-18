@@ -1,24 +1,33 @@
-## API
+## Install and Run
 
 ```
-$ curl localhost:3000/api/v1/counters
-# => {};
+$ npm install
+$ npm start # defaults to port 3000
+$ npm run build-scripts-dev
+$ npm run build-scripts
+```
 
-$ curl -X POST -d '{"title": "gary"}' -H "Content-Type: application/json" localhost:3000/api/v1/counter
-# => {"asdf" : {"id": "asdf", "title": "gary", "count": 0}}
 
-$ curl -X POST -d '{"title": "bob"}' -H "Content-Type: application/json" localhost:3000/api/v1/counter
-# => {"asdf" : {"id": "asdf", "title": "gary", "count": 0}, "qwer": {"id": "qwer", "title": "bob", "count": 0}}
+## API
 
-$ curl -X POST -d '{"id":"asdf"}' -H "Content-Type: appliction/json" localhost:3000/api/v1/counter/inc
-# => {"asdf" : {"id": "asdf", "title": "gary", "count": 1}, "qwer": {"id": "qwer", "title": "bob", "count": 0}}
+> the following request are all `Content-Type: application/json`
 
-$ curl -X POST -d '{"id":"asdf"}' -H "Content-Type: appliction/json" localhost:3000/api/v1/counter/dec
-# => {"asdf" : {"id": "asdf", "title": "gary", "count": 0}, "qwer": {"id": "qwer", "title": "bob", "count": 0}}
+```
+GET /api/v1/counters
+# []
 
-$ curl localhost:3000/api/v1/counters
-# => {"asdf" : {"id": "asdf", "title": "gary", "count": 0}, "qwer": {"id": "qwer", "title": "bob", "count": 0}}
+POST {title: "Bob"} /api/v1/counter
+# [{id: "asdf", title: "Bob", count: 0}]
 
-$ curl -X DELETE -d '{"id":"asdf"}' -H "Content-Type: appliction/json" localhost:3000/api/v1/counter
-# => {"qwer": {"id": "qwer", "title": "bob", "count": 0}}
+POST {title: "Steve"} /api/v1/counter
+# [{id: "asdf", title: "Bob", count: 0}, {id: "qwer", title: "Steve", count: 0}]
+
+POST {id: "asdf"} /api/v1/counter/inc
+# [{id: "asdf", title: "Bob", count: 1}, {id: "qwer", title: "Steve", count: 0}]
+
+POST {id: "qwer"} /api/v1/counter/dec
+# [{id: "asdf", title: "Bob", count: 1}, {id: "qwer", title: "Steve", count: -1}]
+
+DELETE {id: "qwer"} /api/v1/counter
+# [{id: "asdf", title: "Bob", count: 1}]
 ```
